@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $target = $uploadDir . $video_frame;
 
             $ext = strtolower(pathinfo($video_frame, PATHINFO_EXTENSION));
-            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp','avif'];
 
             if (!in_array($ext, $allowed)) {
                 $message = "<div class='error-msg'>Invalid image for video_frame</div>";
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $target = $uploadDir . $thumbnail;
 
             $ext = strtolower(pathinfo($thumbnail, PATHINFO_EXTENSION));
-            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp','avif'];
 
             if (!in_array($ext, $allowed)) {
                 $message = "<div class='error-msg'>Invalid thumbnail image</div>";

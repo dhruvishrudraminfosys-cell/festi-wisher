@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $image = time() . "_" . basename($_FILES['category_image']['name']);
             $targetFile = $uploadDir . $image;
 
-            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp','avif'];
             $ext = strtolower(pathinfo($image, PATHINFO_EXTENSION));
 
             if (in_array($ext, $allowed)) {
