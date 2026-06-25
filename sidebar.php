@@ -68,22 +68,18 @@ $current = basename($_SERVER['PHP_SELF']);
         </li>
 
         <li>
-            <a href="<?= BASE_URL ?>category/categories.php" class="<?= ($current == 'categories.php' || $current == 'add_category.php' ||  $current == 'edit_category.php') ? 'active' : '' ?>">
+            <a href="<?= BASE_URL ?>category/categories.php"
+                class="<?= ($current == 'categories.php' || $current == 'add_category.php' || $current == 'edit_category.php') ? 'active' : '' ?>">
                 <i class="fa fa-list"></i> Categories
             </a>
         </li>
 
         <li>
-            <a href="<?= BASE_URL ?>subcategories.php" class="<?= ($current == 'subcategories.php') ? 'active' : '' ?>">
+            <a href="<?= BASE_URL ?>sub_category/subcategories.php"
+                class="<?= ($current == 'subcategories.php' || $current == 'add_sub.php' || $current == 'edit_sub.php') ? 'active' : '' ?>">
                 <i class="fa fa-layer-group"></i> Sub Categories
             </a>
-        </li>
-
-        <li>
-            <a href="<?= BASE_URL ?>users.php" class="<?= ($current == 'users.php') ? 'active' : '' ?>">
-                <i class="fa fa-users"></i> Users
-            </a>
-        </li>
+        </li>   
 
         <li>
             <a href="<?= BASE_URL ?>logout.php">
