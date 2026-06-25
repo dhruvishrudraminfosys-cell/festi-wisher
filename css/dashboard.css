@@ -1,0 +1,43 @@
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: 'Poppins', sans-serif;
+ }
+
+ body {
+     background: #f4f6f9;
+ }
+
+ /* main content shift */
+ .content {
+     margin-left: 250px;
+     padding: 30px;
+ }
+
+ .topbar {
+     background: #fff;
+     padding: 15px 20px;
+     border-radius: 12px;
+     margin-bottom: 20px;
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+ }
+
+ .welcome {
+     font-size: 20px;
+     font-weight: 500;
+ }
+
+ .username {
+     color: #2563eb;
+ }
+
+ .card {
+     background: #fff;
+     padding: 25px;
+     border-radius: 12px;
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+ }
+
+
+ 
