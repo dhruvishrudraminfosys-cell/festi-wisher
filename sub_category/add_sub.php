@@ -29,13 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_FILES['video_frame']['name'])) {
 
             $uploadDir = "../uploads/sub_categories/";
-            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+            if (!is_dir($uploadDir))
+                mkdir($uploadDir, 0777, true);
 
             $video_frame = time() . "_frame_" . basename($_FILES['video_frame']['name']);
             $target = $uploadDir . $video_frame;
 
             $ext = strtolower(pathinfo($video_frame, PATHINFO_EXTENSION));
-            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp','avif'];
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
 
             if (!in_array($ext, $allowed)) {
                 $message = "<div class='error-msg'>Invalid image for video_frame</div>";
@@ -50,7 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_FILES['video_url']['name'])) {
 
             $uploadDir = "../uploads/sub_categories/videos/";
-            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+            if (!is_dir($uploadDir))
+                mkdir($uploadDir, 0777, true);
 
             $video_url = time() . "_video_" . basename($_FILES['video_url']['name']);
             $target = $uploadDir . $video_url;
@@ -71,13 +73,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_FILES['video_thumbnail_image']['name'])) {
 
             $uploadDir = "../uploads/sub_categories/";
-            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+            if (!is_dir($uploadDir))
+                mkdir($uploadDir, 0777, true);
 
             $thumbnail = time() . "_thumb_" . basename($_FILES['video_thumbnail_image']['name']);
             $target = $uploadDir . $thumbnail;
 
             $ext = strtolower(pathinfo($thumbnail, PATHINFO_EXTENSION));
-            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp','avif'];
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
 
             if (!in_array($ext, $allowed)) {
                 $message = "<div class='error-msg'>Invalid thumbnail image</div>";
@@ -99,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_query($conn, $sql)) {
 
                 /* ✅ FIXED REDIRECT PATH */
-               header("Location: subcategories.php?msg=added");
+                header("Location: subcategories.php?msg=added");
                 exit();
 
             } else {
@@ -112,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Add Sub Category</title>
@@ -120,78 +124,121 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/add_category.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
+<style>
+    .select2-container {
+        width: 100% !important;
+    }
+    .select2-container--default .select2-selection--single {
+        height: 42px;
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+        padding: 6px 10px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        background: #fff;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 40px;
+        right: 8px;
+    }
+    .select2-container--default.select2-container--focus .select2-selection--single {
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
+    }
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 6px;
+    }
+</style>
 
 <body>
 
-<?php include "../sidebar.php"; ?>
+    <?php include "../sidebar.php"; ?>
 
-<div class="content">
+    <div class="content">
 
-    <div class="topbar">
-        Welcome,
-        <span class="username"><?php echo htmlspecialchars($_SESSION['user']); ?></span>
-    </div>
-
-    <div class="card">
-
-        <div class="card-header">
-            <h2><i class="fa-solid fa-layer-group"></i> Add Sub Category</h2>
-            <p>Upload image, video and thumbnail</p>
+        <div class="topbar">
+            Welcome,
+            <span class="username"><?php echo htmlspecialchars($_SESSION['user']); ?></span>
         </div>
 
-        <form method="POST" enctype="multipart/form-data">
+        <div class="card">
 
-            <!-- CATEGORY -->
-            <div class="form-group">
-                <label>Select Category</label>
-                <select name="category_id" class="form-control" required>
-                    <option value="0">-- Select Category --</option>
-                    <?php while ($row = mysqli_fetch_assoc($cat_result)) { ?>
-                        <option value="<?php echo $row['id']; ?>">
-                            <?php echo $row['name']; ?>
-                        </option>
-                    <?php } ?>
-                </select>
+            <div class="card-header">
+                <h2><i class="fa-solid fa-layer-group"></i> Add Sub Category</h2>
+                <p>Upload image, video and thumbnail</p>
             </div>
 
-            <!-- IMAGE 1 -->
-            <div class="form-group">
-                <label>Video Frame (Image)</label>
-                <input type="file" name="video_frame" class="form-control" accept="image/*">
-            </div>
+            <form method="POST" enctype="multipart/form-data">
 
-            <!-- VIDEO -->
-            <div class="form-group">
-                <label>Video Upload</label>
-                <input type="file" name="video_url" class="form-control" accept="video/*">
-            </div>
+                <!-- CATEGORY -->
+                <div class="form-group">
+                    <label>Select Category</label>
+                    <select name="category_id" class="form-control select2" required>
+                        <option value="0">-- Select Category --</option>
+                        <?php while ($row = mysqli_fetch_assoc($cat_result)) { ?>
+                            <option value="<?php echo $row['id']; ?>">
+                                <?php echo $row['name']; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
 
-            <!-- THUMBNAIL -->
-            <div class="form-group">
-                <label>Thumbnail Image</label>
-                <input type="file" name="video_thumbnail_image" class="form-control" accept="image/*">
-            </div>
+                <!-- IMAGE 1 -->
+                <div class="form-group">
+                    <label>Video Frame (Image)</label>
+                    <input type="file" name="video_frame" class="form-control" accept="image/*">
+                </div>
 
-            <div class="btn-group">
-                <button type="submit" class="btn btn-save">
-                    <i class="fa-solid fa-floppy-disk"></i> Save Sub Category
-                </button>
+                <!-- VIDEO -->
+                <div class="form-group">
+                    <label>Video Upload</label>
+                    <input type="file" name="video_url" class="form-control" accept="video/*">
+                </div>
 
-                <a href="sub_categories.php" class="btn btn-reset">
-                    <i class="fa fa-times"></i> Back
-                </a>
-            </div>
+                <!-- THUMBNAIL -->
+                <div class="form-group">
+                    <label>Thumbnail Image</label>
+                    <input type="file" name="video_thumbnail_image" class="form-control" accept="image/*">
+                </div>
 
-        </form>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-save">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Sub Category
+                    </button>
 
-        <?php if (!empty($message)) echo $message; ?>
+                    <a href="sub_categories.php" class="btn btn-reset">
+                        <i class="fa fa-times"></i> Back
+                    </a>
+                </div>
+
+            </form>
+
+            <?php if (!empty($message))
+                echo $message; ?>
+
+        </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>
+
+<script>
+    $(document).ready(function () {
+        $('.select2').select2({
+            placeholder: "Search category...",
+            allowClear: true,
+            width: '100%'
+        });
+    });
+</script>
 
 <?php ob_end_flush(); ?>

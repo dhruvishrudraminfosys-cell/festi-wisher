@@ -155,8 +155,12 @@ if (isset($_GET['msg'])) {
 
                                     <td>
                                         <?php if (!empty($row['video_thumbnail_image'])) { ?>
-                                            <img src="../uploads/sub_categories/<?php echo $row['video_thumbnail_image']; ?>"
-                                                width="60" height="60" style="border-radius:8px; object-fit:cover;">
+                                            <a href="../uploads/sub_categories/<?php echo $row['video_thumbnail_image']; ?>"
+                                                target="_blank">
+                                                <img src="../uploads/sub_categories/<?php echo $row['video_thumbnail_image']; ?>"
+                                                    width="60" height="60"
+                                                    style="border-radius:8px; object-fit:cover; cursor:pointer;">
+                                            </a>
                                         <?php } else { ?>
                                             No Image
                                         <?php } ?>
@@ -177,8 +181,10 @@ if (isset($_GET['msg'])) {
 
                                     <td>
                                         <?php if (!empty($row['video_frame'])) { ?>
-                                            <img src="../uploads/sub_categories/<?php echo $row['video_frame']; ?>" width="60"
-                                                height="60" style="border-radius:8px; object-fit:cover;">
+                                            <a href="../uploads/sub_categories/<?php echo $row['video_frame']; ?>" target="_blank">
+                                                <img src="../uploads/sub_categories/<?php echo $row['video_frame']; ?>" width="60"
+                                                    height="60" style="border-radius:8px; object-fit:cover; cursor:pointer;">
+                                            </a>
                                         <?php } else { ?>
                                             No Image
                                         <?php } ?>
