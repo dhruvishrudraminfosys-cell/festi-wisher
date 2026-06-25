@@ -37,6 +37,44 @@ if (isset($_GET['msg'])) {
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/category.css">
 </head>
+<style>
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 6px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .btn-edit {
+        background: #28a745;
+    }
+
+    .btn-edit:hover {
+        background: #218838;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+    }
+
+    .btn-delete:hover {
+        background: #c82333;
+    }
+</style>
 
 <body>
 
@@ -91,6 +129,7 @@ if (isset($_GET['msg'])) {
                             <th>Video URL</th>
                             <th>Video Frame</th>
                             <th>Date</th>
+                            <th>Video Count</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -125,7 +164,8 @@ if (isset($_GET['msg'])) {
 
                                     <td>
                                         <?php if (!empty($row['video_url'])) { ?>
-                                            <a href="../uploads/sub_categories/videos/<?php echo $row['video_url']; ?>" target="_blank">
+                                            <a href="../uploads/sub_categories/videos/<?php echo $row['video_url']; ?>"
+                                                target="_blank">
                                                 Open Video
                                             </a>
                                         <?php } else { ?>
@@ -133,12 +173,12 @@ if (isset($_GET['msg'])) {
                                         <?php } ?>
                                     </td>
 
-                                   
 
-                                     <td>
+
+                                    <td>
                                         <?php if (!empty($row['video_frame'])) { ?>
-                                            <img src="../uploads/sub_categories/<?php echo $row['video_frame']; ?>"
-                                                width="60" height="60" style="border-radius:8px; object-fit:cover;">
+                                            <img src="../uploads/sub_categories/<?php echo $row['video_frame']; ?>" width="60"
+                                                height="60" style="border-radius:8px; object-fit:cover;">
                                         <?php } else { ?>
                                             No Image
                                         <?php } ?>
@@ -148,7 +188,9 @@ if (isset($_GET['msg'])) {
                                         <?php echo date("d-m-Y", strtotime($row['created_at'])); ?>
                                     </td>
 
-                                    <td>
+                                    <td><?php echo htmlspecialchars($row['video_count']); ?></td>
+
+                                    <td class="action-buttons">
                                         <a href="edit_sub.php?id=<?php echo $row['id']; ?>" class="btn-edit">
                                             <i class="fa fa-edit"></i>
                                         </a>

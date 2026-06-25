@@ -37,7 +37,44 @@ if (isset($_GET['msg'])) {
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/category.css">
 </head>
+<style>
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .btn-edit,
+    .btn-delete {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 6px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .btn-edit {
+        background: #28a745;
+    }
+
+    .btn-edit:hover {
+        background: #218838;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+    }
+
+    .btn-delete:hover {
+        background: #c82333;
+    }
+</style>
 <body>
 
     <?php include "../sidebar.php"; ?>
